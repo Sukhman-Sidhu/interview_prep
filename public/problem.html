@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problem - InterviewPrep Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-brain"></i>
+        <span>InterviewPrep Pro</span>
+      </div>
+      
+      <button class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav>
+        <ul id="navMenu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/dsa">DSA Practice</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Progress</a></li>
+          
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="btn btn-outline" id="loginBtn">Login</button>
+        <button class="btn btn-primary" id="registerBtn">Register</button>
+        <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i> <span>Dark</span>
+</button>
+      </div>
+    </header>
+
+    <div class="view-container">
+      <div class="problem-page">
+        <!-- Problem Statement Section -->
+        <div class="problem-container">
+          <div id="problem-content">
+            <div class="problem-header">
+              <h1 id="title">Problem Title</h1>
+              <span id="difficulty" class="difficulty-badge">Difficulty</span>
+            </div>
+            
+            <div class="problem-meta">
+              <span id="topic" class="problem-topic">Topic</span>
+              <div id="companies" class="problem-companies">
+                <!-- Companies will be added here -->
+              </div>
+            </div>
+            
+            <div id="description" class="problem-description">
+              <!-- Problem description will be added here -->
+            </div>
+            
+            <div id="examples" class="examples">
+              <!-- Examples will be added here -->
+            </div>
+          </div>
+        </div> <br><br>
+
+  <select id="language">
+  <option value="63">JavaScript (Node.js)</option>
+  <option value="71">Python (3.8)</option>
+  <option value="54">C++ (GCC 9.2.0)</option>
+  <option value="62">Java (OpenJDK 13)</option>
+</select>
+      
+
+        <!-- Code Editor Section -->
+        <div>
+          <div class="editor-container">
+            <div class="editor-header">
+              <div class="editor-title">
+                <i class="fas fa-code"></i>
+                <span>Code Editor</span>
+              </div>
+              <div class="editor-actions">
+                <button class="editor-btn theme-toggle" id="themeToggle">
+                  <i class="fas fa-moon"></i>
+                  <span>Dark</span>
+                </button>
+                <button class="editor-btn reset" id="resetBtn">
+                  <i class="fas fa-redo"></i>
+                  <span>Reset</span>
+                </button>
+                <button class="editor-btn run" id="runBtn">
+                  <i class="fas fa-play"></i>
+                  <span>Run</span>
+                </button>
+              </div>
+            </div>
+            <div id="editor"></div>
+          </div>
+
+        
+
+
+
+
+
+          <div class="output-container">
+            <div class="output-header">
+              <div class="output-title">
+                <i class="fas fa-terminal"></i>
+                <span>Output</span>
+              </div>
+              <button class="output-clear" id="clearOutput">
+                <i class="fas fa-trash"></i>
+                <span>Clear</span>
+              </button>
+            </div>
+            <pre id="output"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2023 InterviewPrep Pro. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Us</a>
+        <a href="#">About</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Ace Editor CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.1/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.1/mode-javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.1/theme-monokai.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.1/theme-chrome.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.1/ext-language_tools.js"></script>
+  
+  <script>
+    // Sample problem data
+    const problems = {
+      1: {
+        id: 1,
+        title: "Two Sum",
+        description: `<p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</p>
+                      <p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+                      <p>You can return the answer in any order.</p>`,
+        difficulty: "Easy",
+        topic: "Arrays",
+        companies: ["Google", "Amazon", "Microsoft"],
+        solution: "// JavaScript Solution\nfunction twoSum(nums, target) {\n    const map = new Map();\n    for (let i = 0; i < nums.length; i++) {\n        const complement = target - nums[i];\n        if (map.has(complement)) {\n            return [map.get(complement), i];\n        }\n        map.set(nums[i], i);\n    }\n    return [];\n}",
+        examples: [
+          {
+            input: "nums = [2,7,11,15], target = 9",
+            output: "[0,1]",
+            explanation: "Because nums[0] + nums[1] == 9, we return [0, 1]."
+          },
+          {
+            input: "nums = [3,2,4], target = 6",
+            output: "[1,2]",
+            explanation: "Because nums[1] + nums[2] == 6, we return [1, 2]."
+          }
+        ]
+      },
+      2: {
+        id: 2,
+        title: "Reverse a Linked List",
+        description: `<p>Given the head of a singly linked list, reverse the list, and return the reversed list.</p>`,
+        difficulty: "Medium",
+        topic: "Linked Lists",
+        companies: ["Facebook", "Apple", "Amazon"],
+        solution: "// JavaScript Solution (Iterative)\nfunction reverseList(head) {\n    let prev = null;\n    let current = head;\n    while (current !== null) {\n        let nextTemp = current.next;\n        current.next = prev;\n        prev = current;\n        current = nextTemp;\n    }\n    return prev;\n}",
+        examples: [
+          {
+            input: "head = [1,2,3,4,5]",
+            output: "[5,4,3,2,1]"
+          },
+          {
+            input: "head = [1,2]",
+            output: "[2,1]"
+          }
+        ]
+      },
+      3: {
+        id: 3,
+        title: "Binary Tree Level Order Traversal",
+        description: `<p>Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).</p>`,
+        difficulty: "Medium",
+        topic: "Trees",
+        companies: ["Google", "Microsoft", "Facebook"],
+        solution: "// JavaScript Solution\nfunction levelOrder(root) {\n    if (!root) return [];\n    const result = [];\n    const queue = [root];\n    \n    while (queue.length) {\n        const levelSize = queue.length;\n        const currentLevel = [];\n        \n        for (let i = 0; i < levelSize; i++) {\n            const currentNode = queue.shift();\n            currentLevel.push(currentNode.val);\n            if (currentNode.left) queue.push(currentNode.left);\n            if (currentNode.right) queue.push(currentNode.right);\n        }\n        \n        result.push(currentLevel);\n    }\n    \n    return result;\n}",
+        examples: [
+          {
+            input: "root = [3,9,20,null,null,15,7]",
+            output: "[[3],[9,20],[15,7]]"
+          },
+          {
+            input: "root = [1]",
+            output: "[[1]]"
+          }
+        ]
+      },
+
+        4: {
+      id: 4,
+      title: "Longest Palindromic Substring",
+      description: `<p>Given a string s, return the longest palindromic substring in s.</p>`,
+      difficulty: "Medium",
+      topic: "Strings",
+      companies: ["Google", "Amazon", "Microsoft"],
+      solution: "// JavaScript Solution\nfunction longestPalindrome(s) {\n    if (s.length < 2) return s;\n\n    let start = 0, maxLen = 1;\n\n    function expandAroundCenter(left, right) {\n        while (left >= 0 && right < s.length && s[left] === s[right]) {\n            if (right - left + 1 > maxLen) {\n                start = left;\n                maxLen = right - left + 1;\n            }\n            left--;\n            right++;\n        }\n    }\n\n    for (let i = 0; i < s.length; i++) {\n        expandAroundCenter(i, i);     // odd length\n        expandAroundCenter(i, i + 1); // even length\n    }\n\n    return s.substring(start, start + maxLen);\n}",
+      examples: [
+        {
+          input: "s = 'babad'",
+          output: "'bab' or 'aba'",
+          explanation: "Both 'bab' and 'aba' are valid palindromic substrings."
+        },
+        {
+          input: "s = 'cbbd'",
+          output: "'bb'"
+        }
+      ]
+    },
+    5: {
+      id: 5,
+      title: "Median of Two Sorted Arrays",
+      description: `<p>Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.</p>
+                    <p>The overall run time complexity should be O(log (m+n)).</p>`,
+      difficulty: "Hard",
+      topic: "Binary Search",
+      companies: ["Google", "Facebook", "Amazon"],
+      solution: "// JavaScript Solution\nfunction findMedianSortedArrays(nums1, nums2) {\n    const merged = [...nums1, ...nums2].sort((a, b) => a - b);\n    const n = merged.length;\n    if (n % 2 === 0) {\n        return (merged[n/2 - 1] + merged[n/2]) / 2;\n    } else {\n        return merged[Math.floor(n/2)];\n    }\n}",
+      examples: [
+        {
+          input: "nums1 = [1,3], nums2 = [2]",
+          output: "2.0"
+        },
+        {
+          input: "nums1 = [1,2], nums2 = [3,4]",
+          output: "2.5"
+        }
+      ]
+    },
+    6: {
+      id: 6,
+      title: "Word Break",
+      description: `<p>Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.</p>`,
+      difficulty: "Medium",
+      topic: "Dynamic Programming",
+      companies: ["Google", "Amazon", "Apple"],
+      solution: "// JavaScript Solution\nfunction wordBreak(s, wordDict) {\n    const wordSet = new Set(wordDict);\n    const dp = new Array(s.length + 1).fill(false);\n    dp[0] = true;\n\n    for (let i = 1; i <= s.length; i++) {\n        for (let j = 0; j < i; j++) {\n            if (dp[j] && wordSet.has(s.substring(j, i))) {\n                dp[i] = true;\n                break;\n            }\n        }\n    }\n    return dp[s.length];\n}",
+      examples: [
+        {
+          input: "s = 'leetcode', wordDict = ['leet','code']",
+          output: "true",
+          explanation: "Return true because 'leetcode' can be segmented as 'leet code'."
+        },
+        {
+          input: "s = 'catsandog', wordDict = ['cats','dog','sand','and','cat']",
+          output: "false"
+        }
+      ]
+    }
+
+    };
+
+    // Parse URL parameters
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+// Initialize Ace Editor
+let editor;
+let isDarkMode = true;
+
+function initEditor() {
+  editor = ace.edit("editor");
+  editor.setOptions({
+    theme: "ace/theme/monokai",
+    fontSize: "14px",
+    showPrintMargin: false,
+    wrap: true,
+    showLineNumbers: true,
+    highlightActiveLine: true,
+    enableLiveAutocompletion: true,
+    enableBasicAutocompletion: true,
+    enableSnippets: true
+  });
+
+  // Set keyboard handler for vscode-like experience
+  editor.setKeyboardHandler("ace/keyboard/vscode");
+
+//   // Set initial content
+//   const problemId = getQueryParam('id');
+//   if (problems[problemId]) {
+//     editor.setValue(problems[problemId].solution, -1);
+//   } else {
+//     editor.setValue("// Write your solution here\nfunction solve() {\n  // Your code here\n  return result;\n}", -1);
+//   }
+// }
+
+const problemId = getQueryParam('id');
+
+editor.setValue(`// Write your solution here
+function solve() {
+  // Your code here
+  return result;
+}`, -1);
+}
+
+
+
+// 🔹 Set Ace Editor mode dynamically
+function setEditorMode(languageId) {
+  let mode = "ace/mode/javascript"; // default
+
+  switch (languageId) {
+    case "63": // JavaScript
+      mode = "ace/mode/javascript";
+      break;
+    case "71": // Python
+      mode = "ace/mode/python";
+      break;
+    case "54": // C++
+      mode = "ace/mode/c_cpp";
+      break;
+    case "62": // Java
+      mode = "ace/mode/java";
+      break;
+  }
+
+  editor.session.setMode(mode);
+}
+
+// // Render problem details
+// function renderProblem() {
+//   const problemId = getQueryParam('id');
+//   const problem = problems[problemId];
+  
+//   if (!problem) {
+//     document.getElementById('problem-content').innerHTML = '<h1>Problem not found</h1>';
+//     return;
+//   }
+
+//   document.getElementById('title').textContent = problem.title;
+//   document.getElementById('difficulty').textContent = problem.difficulty;
+//   document.getElementById('difficulty').className = `difficulty-badge difficulty-${problem.difficulty.toLowerCase()}`;
+//   document.getElementById('topic').textContent = problem.topic;
+//   document.getElementById('description').innerHTML = problem.description;
+
+//   // Render companies
+//   const companiesEl = document.getElementById('companies');
+//   companiesEl.innerHTML = problem.companies.map(company => 
+//     `<span class="company-tag">${company}</span>`
+//   ).join('');
+
+//   // Render examples
+//   const examplesEl = document.getElementById('examples');
+//   if (problem.examples && problem.examples.length > 0) {
+//     examplesEl.innerHTML = `
+//       <h3>Examples:</h3>
+//       ${problem.examples.map((example, i) => `
+//         <div class="example">
+//           <h4>Example ${i + 1}:</h4>
+//           <p><strong>Input:</strong> ${example.input}</p>
+//           <p><strong>Output:</strong> ${example.output}</p>
+//           ${example.explanation ? `<p><strong>Explanation:</strong> ${example.explanation}</p>` : ''}
+//         </div>
+//       `).join('')}
+//     `;
+//   }
+// }
+
+function renderProblem() {
+  const problemId = parseInt(getQueryParam('id'));
+
+  fetch("problems.json")
+    .then(res => res.json())
+    .then(data => {
+      const problemsList = transformData(data.questions);
+
+      const problem = problemsList.find(p => p.id === problemId);
+      console.log(problemId);
+console.log(problemsList);
+console.log(problem);
+
+      if (!problem) {
+        document.getElementById('problem-content').innerHTML = '<h1>Problem not found</h1>';
+        return;
+      }
+
+      // Fill UI
+      document.getElementById('title').textContent = problem.title;
+      document.getElementById('difficulty').textContent = problem.difficulty;
+      document.getElementById('difficulty').className =
+        `difficulty-badge difficulty-${problem.difficulty.toLowerCase()}`;
+      document.getElementById('topic').textContent = problem.topic;
+      document.getElementById('description').innerHTML = problem.description;
+
+      // Companies (fallback)
+      document.getElementById('companies').innerHTML =
+        `<span class="company-tag">LeetCode</span>`;
+
+      // Examples (if available)
+      const examplesEl = document.getElementById('examples');
+      if (problem.examples && problem.examples.length > 0) {
+        examplesEl.innerHTML = `
+          <h3>Examples:</h3>
+          ${problem.examples.map((ex, i) => {
+  const text = ex.example_text;
+
+  const input = text.split("Output:")[0];
+  const output = text.split("Output:")[1];
+
+  return `
+    <div class="example">
+      <h4>Example ${i + 1}</h4>
+      <p><b>Input:</b> ${input.replace("Input:", "")}</p>
+      <p><b>Output:</b> ${output || ""}</p>
+    </div>
+  `;
+}).join('')}
+        `;
+      }
+    })
+    .catch(err => console.error(err));
+}
+
+function transformData(data) {
+  return data.map((item, index) => ({
+    id: index + 1,  // ✅ FIXED
+    title: item.title,
+    description: item.description || item.content || "No description",
+    difficulty: item.difficulty,
+    topic: item.topics ? item.topics[0] : "General",
+    examples: item.examples || []
+  }));
+}
+// Run code via your server proxy (Judge0)
+async function runCode() {
+  const code = editor.getValue();
+  const languageId = document.getElementById("language").value;
+  const outputEl = document.getElementById("output");
+
+  // Reset output area
+  outputEl.className = "";
+  outputEl.innerHTML = "Running... ⏳";
+
+  try {
+    const response = await fetch("/api/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        source_code: code,
+        language_id: parseInt(languageId)
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    // Handle Judge0 outputs
+    if (result.stderr) {
+      outputEl.className = "output-error";
+      outputEl.innerHTML = result.stderr;
+    } else if (result.compile_output) {
+      outputEl.className = "output-error";
+      outputEl.innerHTML = result.compile_output;
+    } else if (result.stdout) {
+      outputEl.className = "output-success";
+      outputEl.innerHTML = result.stdout;
+    } else {
+      outputEl.className = "output-success";
+      outputEl.innerHTML = "Code executed successfully (no output)";
+    }
+
+  } catch (error) {
+    outputEl.className = "output-error";
+    outputEl.innerHTML = `Error: ${error.message}`;
+    console.error("RunCode error:", error);
+  }
+}
+
+// Reset editor to initial code
+function resetCode() {
+  const problemId = getQueryParam('id');
+  if (problems[problemId]) {
+    editor.setValue(problems[problemId].solution, -1);
+  } else {
+    editor.setValue("// Write your solution here\nfunction solve() {\n  // Your code here\n  return result;\n}", -1);
+  }
+  document.getElementById('output').innerHTML = '';
+  document.getElementById('output').className = '';
+}
+
+// Toggle editor theme
+function toggleTheme() {
+  const themeToggle = document.getElementById('themeToggle');
+  const icon = themeToggle.querySelector('i');
+  const text = themeToggle.querySelector('span');
+  
+  if (isDarkMode) {
+    editor.setTheme("ace/theme/chrome");
+    icon.className = 'fas fa-sun';
+    text.textContent = 'Light';
+    isDarkMode = false;
+  } else {
+    editor.setTheme("ace/theme/monokai");
+    icon.className = 'fas fa-moon';
+    text.textContent = 'Dark';
+    isDarkMode = true;
+  }
+}
+
+// Clear output
+function clearOutput() {
+  document.getElementById('output').innerHTML = '';
+  document.getElementById('output').className = '';
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+  initEditor();
+  renderProblem();
+
+  // 🔹 Set initial editor mode
+  setEditorMode(document.getElementById("language").value);
+
+  // 🔹 Update editor mode when language changes
+  document.getElementById("language").addEventListener("change", (e) => {
+    setEditorMode(e.target.value);
+  });
+
+  // Event listeners
+  document.getElementById('runBtn').addEventListener('click', runCode);
+  document.getElementById('resetBtn').addEventListener('click', resetCode);
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('clearOutput').addEventListener('click', clearOutput);
+
+  // Mobile menu toggle
+  document.getElementById('mobileToggle').addEventListener('click', () => {
+    document.getElementById('navMenu').classList.toggle('active');
+  });
+});
+
+ (function() {
+        // Initialize theme from localStorage
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const isLight = savedTheme === 'light';
+            if (isLight) {
+                document.body.classList.add('light-theme');
+            } else {
+                document.body.classList.remove('light-theme');
+            }
+            updateToggleButton(isLight);
+        }
+
+        // Update the toggle button icon and text
+        function updateToggleButton(isLight) {
+            const toggleBtn = document.getElementById('themeToggle');
+            if (!toggleBtn) return;
+            const icon = toggleBtn.querySelector('i');
+            const span = toggleBtn.querySelector('span');
+            if (icon) {
+                icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            if (span) {
+                span.innerText = isLight ? 'Light' : 'Dark';
+            }
+        }
+
+        // Toggle theme and save to localStorage
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            updateToggleButton(isLight);
+        }
+
+        // Listen for changes in other tabs
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'theme') {
+                const isLight = event.newValue === 'light';
+                if (isLight) {
+                    document.body.classList.add('light-theme');
+                } else {
+                    document.body.classList.remove('light-theme');
+                }
+                updateToggleButton(isLight);
+            }
+        });
+
+        // Attach event listener once DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            const toggleBtn = document.getElementById('themeToggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleTheme);
+            }
+        });
+    })();
+
+  </script>
+</body>
+</html>

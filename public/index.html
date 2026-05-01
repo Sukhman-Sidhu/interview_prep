@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterviewPrep Pro | DSA Practice Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="style.css">
+    
+        
+       
+        
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>InterviewPrep Pro</span>
+            </div>
+            
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="dsa.html">DSA Practice</a></li>
+                    <li><a href="resources.html" id="resourcesNav">Resources</a></li>
+                    <li><a href="progress.html" id="progressNav">Progress</a></li>
+        
+                    
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+                <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i> <span>Dark</span>
+</button>
+            </div>
+        </header>
+
+        <div class="view-container">
+            <!-- Login View -->
+            <div class="auth-view" id="loginView">
+                <div class="auth-header">
+                    <h2>Welcome Back!</h2>
+                    <p>Sign in to continue your interview preparation</p>
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <div class="error-message" id="loginErrorMessage" style="display:none;"></div>
+<div class="success-message" id="loginSuccessMessage" style="display:none;"></div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" style="width: 100%;" id="signInBtn">Sign In</button>
+                    </div>
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+                    </div>
+                </form>
+            </div>
+
+            
+           <!-- Profile Setup View (Hidden by default) -->
+<div class="profile-view" id="profileView" style="display: none; width: 100%;">
+    <div class="auth-header">
+        <h2>Complete Your Profile</h2>
+        <p>Help us personalize your interview preparation experience</p>
+    </div>
+    
+    <div class="profile-grid">
+        
+        <!-- Education Section -->
+        <div class="profile-card fade-in">
+            <h3><i class="fas fa-user-graduate"></i> Education</h3>
+            
+            <div class="form-group">
+                <label for="education">Highest Education</label>
+                <select class="form-control" id="education">
+                    <option value="">Select your highest education</option>
+                    <option value="highschool">High School</option>
+                    <option value="bachelor">Bachelor's Degree</option>
+                    <option value="master">Master's Degree</option>
+                    <option value="phd">PhD</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fieldOfStudy">Field of Study</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="fieldOfStudy" 
+                    placeholder="e.g. Computer Science"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="graduationYear">Graduation Year</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="graduationYear" 
+                    placeholder="e.g. 2023"
+                >
+            </div>
+        </div>
+        
+        <!-- Career Status Section -->
+        <div class="profile-card fade-in">
+            <h3><i class="fas fa-briefcase"></i> Career Status</h3>
+            
+            <div class="form-group">
+                <label>Current Status</label>
+                <div class="status-options" id="careerStatus">
+                    
+                    <div class="status-option active" data-status="Student">
+                        <i class="fas fa-user-graduate"></i>
+                        <div>Student</div>
+                    </div>
+                    
+                    <div class="status-option" data-status="Job Seeker">
+                        <i class="fas fa-search"></i>
+                        <div>Job Seeker</div>
+                    </div>
+                    
+                    <div class="status-option" data-status="Employed">
+                        <i class="fas fa-briefcase"></i>
+                        <div>Employed</div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="targetRole">Target Job Role</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="targetRole" 
+                    placeholder="e.g. Software Engineer"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="experienceLevel">Experience Level</label>
+                <select class="form-control" id="experienceLevel">
+                    <option value="">Select your experience</option>
+                    <option value="intern">Intern</option>
+                    <option value="entry">Entry Level</option>
+                    <option value="mid">Mid Level</option>
+                    <option value="senior">Senior Level</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Interview Goals Section -->
+        <div class="profile-card fade-in">
+            <h3><i class="fas fa-bullseye"></i> Interview Goals</h3>
+            
+            <div class="form-group">
+                <label for="targetCompanies">Target Companies</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="targetCompanies" 
+                    placeholder="e.g. Google, Amazon, Microsoft"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="timeline">Preparation Timeline</label>
+                <select class="form-control" id="timeline">
+                    <option value="">Select your timeline</option>
+                    <option value="1month">1 Month</option>
+                    <option value="3month">3 Months</option>
+                    <option value="6month">6 Months</option>
+                    <option value="flexible">Flexible</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="focusArea">Focus Areas</label>
+                <select class="form-control" id="focusArea">
+                    <option value="technical">Technical Skills</option>
+                    <option value="behavioral">Behavioral Questions</option>
+                    <option value="communication">Communication Skills</option>
+                    <option value="system">System Design</option>
+                    <option value="coding">Coding Challenges</option>
+                </select>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Submit Button -->
+    <div class="form-footer" style="margin-top: 30px;">
+        <button 
+            class="btn btn-primary" 
+            id="completeProfileBtn"
+            style="width: 100%; max-width: 300px;"
+        >
+            Complete Profile
+        </button>
+    </div>
+</div>
+            <!-- ================= RESOURCES VIEW ================= -->
+
+<div class="resources-view" id="resourcesView" style="display: none;">
+
+    <div class="auth-header">
+        <h2>Interview Preparation Resources</h2>
+        <p>Access study materials, tips, and practice resources</p>
+    </div>
+
+    <div class="profile-grid">
+
+        <!-- Resume Tips -->
+        <div class="profile-card fade-in">
+            <h3>
+                <i class="fas fa-file-alt"></i>
+                Resume Building
+            </h3>
+
+            <p class="resource-desc">
+                Learn how to create ATS-friendly resumes for placements and internships.
+            </p>
+
+            <div class="resource-links">
+                <a href="https://youtu.be/y8YH0Qbu5h4" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    Watch Resume Tutorial
+                </a>
+
+                <a href="https://www.canva.com/resumes/" target="_blank" class="resource-link">
+                    <i class="fas fa-file-download"></i>
+                    Resume Templates
+                </a>
+            </div>
+        </div>
+
+        <!-- DSA -->
+        <div class="profile-card fade-in">
+            <h3>
+                <i class="fas fa-code"></i>
+                DSA Roadmap
+            </h3>
+
+            <p class="resource-desc">
+                Practice important DSA topics for coding interviews.
+            </p>
+
+            <div class="resource-links">
+                <a href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/" target="_blank" class="resource-link">
+                    <i class="fas fa-laptop-code"></i>
+                    Striver A2Z Sheet
+                </a>
+
+                <a href="https://youtu.be/RBSGKlAvoiM" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    DSA Full Course
+                </a>
+            </div>
+        </div>
+
+        <!-- Communication -->
+        <div class="profile-card fade-in">
+            <h3>
+                <i class="fas fa-microphone"></i>
+                Communication Skills
+            </h3>
+
+            <p class="resource-desc">
+                Improve speaking confidence and interview communication.
+            </p>
+
+            <div class="resource-links">
+                <a href="https://youtu.be/UQt-8tCvMPQ" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    Speaking Skills Video
+                </a>
+
+                <a href="https://youtu.be/HAnw168huqA" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    HR Interview Tips
+                </a>
+            </div>
+        </div>
+
+        <!-- Aptitude -->
+        <div class="profile-card fade-in">
+            <h3>
+                <i class="fas fa-brain"></i>
+                Aptitude Preparation
+            </h3>
+
+            <p class="resource-desc">
+                Practice quantitative aptitude and reasoning questions.
+            </p>
+
+            <div class="resource-links">
+                <a href="https://www.indiabix.com/" target="_blank" class="resource-link">
+                    <i class="fas fa-book"></i>
+                    IndiaBix Practice
+                </a>
+
+                <a href="https://youtu.be/p1Zb90MFf20" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    Aptitude Tricks
+                </a>
+            </div>
+        </div>
+
+        <!-- HR Questions -->
+        <div class="profile-card fade-in">
+            <h3>
+                <i class="fas fa-user-tie"></i>
+                HR Interview Preparation
+            </h3>
+
+            <p class="resource-desc">
+                Prepare for common HR interview questions with sample answers and expert guidance.
+            </p>
+
+            <div class="resource-links">
+                <a href="https://youtu.be/ji46dkd8jC4" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    Tell Me About Yourself
+                </a>
+
+                <a href="https://youtu.be/t1Ey2op7v94" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    HR Interview Full Guide
+                </a>
+
+                <a href="https://www.geeksforgeeks.org/hr-interview-questions-and-answers/" target="_blank" class="resource-link">
+                    <i class="fas fa-book-open"></i>
+                    HR Questions & Answers
+                </a>
+
+                <a href="https://youtu.be/5v-wyR5emRw" target="_blank" class="resource-link">
+                    <i class="fab fa-youtube"></i>
+                    Strengths & Weaknesses
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+            
+
+
+
+<!-- Practice View (Hidden by default) -->
+            <div class="practice-container" id="practiceView" style="display: none;">
+                <div class="auth-header">
+                    <h2>Professional Interview Practice</h2>
+                    <p>Practice answering common interview questions and receive feedback</p>
+                </div>
+                <div class="form-group">
+    <label for="questionCategory">Select Interview Category</label>
+    <select id="questionCategory" class="form-control">
+        <option value="HR">HR Questions</option>
+        <option value="Technical">Technical Questions</option>
+        <option value="Behavioral">Behavioral Questions</option>
+        <option value="Situational">Situational Questions</option>
+    </select>
+</div>
+
+                <div class="question-card fade-in">
+                    <h3>Question 1</h3>
+                    <div class="question-text">
+                        <p>"Tell me about yourself." This is often the first question in an interview. How would you structure your answer to make a strong first impression?</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userAnswer">Your Answer</label>
+                        <textarea id="userAnswer" class="form-control" placeholder="Type your answer here..."></textarea>
+                    </div>
+
+                    <div class="ai-help">
+                        <button class="btn btn-outline" id="generateAnswer" style="width: 100%;">
+                            <i class="fas fa-robot"></i> Generate Sample Answer
+                        </button>
+                    </div>
+                    
+                    <div class="error-message" id="errorMessage"></div>
+                    <div class="success-message" id="successMessage"></div>
+                    
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-primary" id="submitAnswer" style="flex: 1; min-width: 120px;">Submit Answer</button>
+                        <button class="btn btn-outline" id="nextQuestion" style="flex: 1; min-width: 120px;">Next Question</button>
+                    </div>
+                </div>
+                
+                <div class="feedback-container" id="feedbackContainer" style="display: none;">
+                    <div class="feedback-header">
+                        <h3>Feedback Analysis</h3>
+                        <div class="score" id="scoreDisplay">Score: 7.2/10</div>
+                    </div>
+                    
+                    <div id="feedbackText">
+                        <p><strong>Summary:</strong> <span id="summaryText">Your answer had a clear structure and included relevant professional experience.</span></p>
+                        
+                        <p><strong>Strengths:</strong> <span id="strengthsText">You maintained good eye contact and had a confident tone.</span></p>
+                    
+                        <div class="improvement-tips">
+                            <h4>Areas for Improvement:</h4>
+                            <ul id="improvementsList">
+                                <li>Try to keep your answer more concise - aim for 1.5 to 2 minutes</li>
+                                <li>Connect your experience more directly to the position you're applying for</li>
+                                <li>Include a specific achievement with quantifiable results</li>
+                                <li>End with why you're interested in this specific role/company</li>
+                            </ul>
+                        </div>
+                        
+                        <p><strong>Follow-up Question:</strong> <span id="followupText">How would you apply your past experience to this role?</span></p>
+                    </div>
+                    
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-outline" id="tryAgain" style="flex: 1; min-width: 120px;">Try Again</button>
+                        <button class="btn btn-primary" id="learnMore" style="flex: 1; min-width: 120px;">Learn More Tips</button>
+                    </div>
+                </div>
+                
+                <div class="ai-sample" id="aiSample" style="margin-top: 30px; display: none;">
+                    <div class="question-text">
+                        <h3><i class="fas fa-robot"></i> AI-Generated Sample Answer</h3>
+                        <p>"I'm a computer science graduate from Stanford University with a passion for developing scalable web applications. During my internship at TechCorp, I led a team that developed a customer portal which reduced support tickets by 40%. My expertise in React and Node.js aligns well with the requirements for this frontend developer position at your company. I'm particularly drawn to your innovative approach to user experience, which is why I'm excited about this opportunity."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 InterviewPrep Pro. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+                <a href="#">About</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <div class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3><i class="fas fa-robot"></i> InterviewPrep Assistant</h3>
+                <div class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    Hello! I'm your interview preparation assistant. How can I help you today?
+                </div>
+                <div class="message bot-message">
+                    You can ask me about:
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                         <li>Interview tips</li>
+                        <li>Sample answers</li>
+                        <li>Communication skills</li>
+                        <li>Technical interview prep</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your message...">
+                <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    
+<script>
+   // ================= DOM ELEMENTS =================
+const loginView = document.getElementById('loginView');
+const profileView = document.getElementById('profileView');
+const practiceView = document.getElementById('practiceView');
+const resourcesView = document.getElementById('resourcesView');
+const progressView = document.getElementById('progressView');
+
+const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const progressNav = document.getElementById('progressNav');
+const showRegister = document.getElementById('showRegister');
+const signInBtn = document.getElementById('signInBtn');
+
+const submitAnswer = document.getElementById('submitAnswer');
+const feedbackContainer = document.getElementById('feedbackContainer');
+const nextQuestion = document.getElementById('nextQuestion');
+const tryAgain = document.getElementById('tryAgain');
+const generateAnswer = document.getElementById('generateAnswer');
+const aiSample = document.getElementById('aiSample');
+
+const errorMessage = document.getElementById('errorMessage'); // Practice View
+const successMessage = document.getElementById('successMessage'); // Practice View
+
+const loginErrorMessage = document.getElementById('loginErrorMessage'); // Login View
+const loginSuccessMessage = document.getElementById('loginSuccessMessage'); // Login View
+
+const scoreDisplay = document.getElementById('scoreDisplay');
+const summaryText = document.getElementById('summaryText');
+const strengthsText = document.getElementById('strengthsText');
+const improvementsList = document.getElementById('improvementsList');
+const followupText = document.getElementById('followupText');
+
+const statusOptions = document.querySelectorAll('.status-option');
+
+const chatbotToggle = document.getElementById('chatbotToggle');
+const chatbotWindow = document.getElementById('chatbotWindow');
+const chatbotClose = document.getElementById('chatbotClose');
+const chatbotInput = document.getElementById('chatbotInput');
+const chatbotMessages = document.getElementById('chatbotMessages');
+const chatbotSend = document.getElementById('chatbotSend');
+
+const categorySelector = document.getElementById("questionCategory");
+const completeProfileBtn = document.getElementById("completeProfileBtn");
+
+// ================= COMPLETE PROFILE =================
+if (completeProfileBtn) {
+    completeProfileBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        // Get selected career status
+        const activeStatusElement = document.querySelector(".status-option.active");
+        const activeStatus = activeStatusElement
+            ? activeStatusElement.getAttribute("data-status")
+            : "";
+
+        // Collect form data
+        const profileData = {
+            education: document.getElementById("education").value.trim(),
+            fieldOfStudy: document.getElementById("fieldOfStudy").value.trim(),
+            graduationYear: document.getElementById("graduationYear").value.trim(),
+            careerStatus: activeStatus,
+            targetRole: document.getElementById("targetRole").value.trim(),
+            experienceLevel: document.getElementById("experienceLevel").value,
+            targetCompanies: document.getElementById("targetCompanies").value.trim(),
+            timeline: document.getElementById("timeline").value,
+            focusArea: document.getElementById("focusArea").value
+        };
+
+        // Basic validation
+        if (
+            !profileData.education ||
+            !profileData.fieldOfStudy ||
+            !profileData.graduationYear ||
+            !profileData.targetRole
+        ) {
+            alert("Please fill all required profile fields.");
+            return;
+        }
+
+        try {
+            completeProfileBtn.disabled = true;
+            completeProfileBtn.textContent = "Saving Profile...";
+
+            const response = await fetch("http://localhost:5050/api/save-profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(profileData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                alert("Profile completed successfully!");
+
+                // Move user to practice section
+                profileView.style.display = "none";
+                loginView.style.display = "none";
+                practiceView.style.display = "block";
+
+            } else {
+                alert(result.error || "Profile save failed");
+            }
+
+        } catch (error) {
+            console.error("Profile save error:", error);
+            alert("Server connection failed. Make sure backend is running.");
+        } finally {
+            completeProfileBtn.disabled = false;
+            completeProfileBtn.textContent = "Complete Profile";
+        }
+    });
+}
+
+// ================= AUTH NAVIGATION =================
+showRegister.addEventListener('click', (e) => {
+    e.preventDefault();
+    loginView.style.display = 'none';
+    profileView.style.display = 'block';
+});
+
+loginBtn.addEventListener('click', () => {
+    loginView.style.display = 'block';
+    profileView.style.display = 'none';
+    practiceView.style.display = 'none';
+});
+
+registerBtn.addEventListener('click', () => {
+    loginView.style.display = 'none';
+    profileView.style.display = 'block';
+    practiceView.style.display = 'none';
+});
+
+// ================= STATUS BUTTONS =================
+statusOptions.forEach(option => {
+    option.addEventListener("click", () => {
+        statusOptions.forEach(opt => opt.classList.remove("active"));
+        option.classList.add("active");
+    });
+});
+
+// ================= PROGRESS NAV =================
+if (progressNav) {
+    progressNav.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        loginView.style.display = 'none';
+        profileView.style.display = 'none';
+        practiceView.style.display = 'none';
+        resourcesView.style.display = 'none';
+
+        if (progressView) {
+            progressView.style.display = 'block';
+        }
+    });
+}
+
+// ================= FEEDBACK HELPERS =================
+function showError(message, type = "general") {
+    if (type === "login") {
+        loginErrorMessage.textContent = message;
+        loginErrorMessage.style.display = "block";
+    } else {
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+    }
+}
+
+function hideError(type = "general") {
+    if (type === "login") {
+        loginErrorMessage.style.display = "none";
+    } else {
+        errorMessage.style.display = "none";
+    }
+}
+
+function showSuccess(message, type = "general") {
+    if (type === "login") {
+        loginSuccessMessage.textContent = message;
+        loginSuccessMessage.style.display = "block";
+    } else {
+        successMessage.textContent = message;
+        successMessage.style.display = "block";
+    }
+}
+
+function hideSuccess(type = "general") {
+    if (type === "login") {
+        loginSuccessMessage.style.display = "none";
+    } else {
+        successMessage.style.display = "none";
+    }
+}
+// ================= DUMMY FEEDBACK =================
+const dummyFeedback = {
+    summary: "Your answer had a clear structure and included relevant professional experience.",
+    score: 7.2,
+    strengths: ["Good structure", "Relevant examples", "Appropriate length"],
+    improvements: [
+        "Try to keep your answer concise",
+        "Connect your answer to the job role",
+        "Include measurable achievements",
+        "End with enthusiasm"
+    ],
+    follow_up: "How would you apply your experience to this role?"
+};
+
+// ================= DISPLAY FEEDBACK =================
+function displayFeedback(feedback) {
+    scoreDisplay.textContent = `Score: ${feedback.score}/10`;
+    summaryText.textContent = feedback.summary;
+    strengthsText.textContent = Array.isArray(feedback.strengths)
+        ? feedback.strengths.join(", ")
+        : feedback.strengths;
+
+    followupText.textContent = feedback.follow_up;
+
+    improvementsList.innerHTML = '';
+
+    feedback.improvements.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        improvementsList.appendChild(li);
+    });
+
+    feedbackContainer.style.display = 'block';
+}
+
+// ================= SUBMIT ANSWER =================
+submitAnswer.addEventListener('click', () => {
+    const userAnswer = document.getElementById('userAnswer').value.trim();
+
+    if (!userAnswer) {
+        showError("Please enter an answer first.");
+        return;
+    }
+
+    hideError();
+    hideSuccess();
+
+    displayFeedback(dummyFeedback);
+    showSuccess("Answer analyzed successfully!");
+});
+
+// ================= INTERVIEW DATASET =================
+// ================= FULL PROFESSIONAL INTERVIEW DATASET (200+ Q&A) =================
+const interviewDataset = {
+  HR: [
+    {
+      question: "Tell me about yourself.",
+      answer: "I'm a Computer Science student graduating in [Month Year], with a strong focus on full-stack development. Over the past two years, I've built three web applications—including a task management tool and an e-commerce front-end—using React, Node.js, and MongoDB. I also completed a summer internship where I contributed to a live client dashboard. I'm now looking for an entry-level role where I can solve real user problems while growing under experienced mentors."
+    },
+    {
+      question: "Why should we hire you?",
+      answer: "You should hire me because I combine technical foundations with ownership and rapid learning. In my last group project, I voluntarily refactored a slow API call, reducing load time by 40%. I also communicate clearly and document my code, which makes collaboration easier. I'm not just looking for any job—I'm looking to contribute meaningfully to [Company Name]'s goals."
+    },
+    {
+      question: "What are your strengths?",
+      answer: "My top three strengths are analytical problem-solving, adaptability, and disciplined execution. For example, when our team’s deployment pipeline broke two days before a deadline, I learned CI/CD basics overnight and fixed the configuration. I also break down complex tasks into small, testable steps, which helps me deliver reliable code on time."
+    },
+    {
+      question: "What is your biggest weakness?",
+      answer: "Earlier, I hesitated to ask for help early, which led to wasted time. I've since changed: I now set a 45-minute timer for any blocker. If I'm not making progress, I reach out to a peer or mentor. This has made me more efficient without sacrificing independence."
+    },
+    {
+      question: "Why do you want to work for our company?",
+      answer: "I admire [Company Name] because of your emphasis on developer experience and your open-source contributions to [specific tool/framework]. Your engineering blog post about scaling real-time features really resonated with me. I want to work somewhere that values clean code and learning—and that’s exactly what you're known for."
+    },
+    {
+      question: "Where do you see yourself in 5 years?",
+      answer: "In five years, I see myself as a technical lead or senior engineer who mentors junior developers and drives architectural decisions. I want to have deep expertise in backend systems, but also enough product sense to influence roadmaps. I'm specifically interested in growing into a role where I can bridge engineering and product."
+    },
+    {
+      question: "What motivates you?",
+      answer: "I'm motivated by two things: first, the feeling of solving a bug that others couldn't figure out. Second, seeing a feature I built being used by real people. That feedback loop—building something, measuring impact, then improving it—is what makes software development exciting for me."
+    },
+    {
+      question: "How do you handle pressure?",
+      answer: "I handle pressure by breaking chaos into structure. During a major demo day, our database migration failed 30 minutes before presentation. I quickly reverted the migration, restaged the backup, and coordinated with QA to smoke-test core flows. We delivered the demo on time. I stay calm by focusing on 'next actionable step' rather than the entire problem."
+    },
+    {
+      question: "Why did you choose this career?",
+      answer: "I chose software engineering because I enjoy creating systems that are both logical and helpful to people. I remember building a small script that automated a manual data entry task for a family member—it saved them hours each week. That combination of logic + direct human impact felt meaningful, and I've pursued it ever since."
+    },
+    {
+      question: "What makes you unique?",
+      answer: "What makes me unique is my habit of post-morteming my own work. After every project, I write a short 'what went well' and 'what I'd change' note. I've built a personal knowledge base of mistakes and solutions over two years. This means I rarely repeat the same error, and I improve measurably from project to project."
+    },
+    {
+      question: "Describe your ideal work environment.",
+      answer: "My ideal work environment balances focus time with collaborative review. I enjoy teams that do code reviews respectfully, document decisions, and allow developers to take ownership of features. I also appreciate a culture where it's safe to say 'I don't know, but I'll find out'—that drives both innovation and psychological safety."
+    },
+    {
+      question: "Are you a team player?",
+      answer: "Yes. In my last group project, I volunteered to integrate four people's modules into a single codebase, resolving merge conflicts and standardizing naming conventions. I also set up a shared Notion page for progress tracking. I believe strong code comes from strong coordination, and I actively work to enable that."
+    },
+    {
+      question: "How do you prioritize work?",
+      answer: "I use a modified Eisenhower matrix: urgent + important (do now), important but not urgent (schedule), urgent but not important (delegate/automate), and neither (eliminate). I also communicate with my manager weekly to ensure my priorities align with team milestones."
+    },
+    {
+      question: "What are your salary expectations?",
+      answer: "Based on my research for entry-level software roles in [location] and my skills in JavaScript, React, and Python, I'm targeting a range between $X and $Y. However, I'm flexible for the right role, especially considering benefits, mentorship quality, and growth opportunities."
+    },
+    {
+      question: "Why are you leaving your current role?",
+      answer: "I'm looking for a role where I can work on larger-scale systems and collaborate with a dedicated engineering team. My current position gave me great exposure to front-end work, but I've grown beyond its scope and want to contribute to feature design, code reviews, and production debugging at a higher level."
+    },
+    {
+      question: "How do you define success?",
+      answer: "For me, success means writing code that is both correct and maintainable, shipping features that solve user problems, and becoming someone that teammates trust to handle complex tasks. Over a longer horizon, success means looking back and seeing clear growth in both technical depth and leadership."
+    },
+    {
+      question: "Can you work under deadlines?",
+      answer: "Absolutely. I actually perform well under reasonable deadlines—they force clarity. In my internship, I had to deliver a reporting dashboard in two weeks. I prioritised the core metrics API first, then added filters and UI polish. I delivered working software on time and documented known edge cases for future iteration."
+    },
+    {
+      question: "How do you deal with criticism?",
+      answer: "I treat criticism as data. During a code review, a senior engineer said my function was unreadable. Instead of defending it, I asked for specific examples, rewrote it with clearer naming and comments, and learned to write self-documenting code. I now proactively ask 'what could be better here?'"
+    },
+    {
+      question: "What do you know about our company?",
+      answer: "I know that [Company Name] recently launched [specific product/feature] and that you're known for [X culture/value]. I've read your engineering blog post on how you handle database sharding, and I was impressed by the trade-offs you explicitly chose. That level of transparency makes me excited to potentially contribute."
+    },
+    {
+      question: "Do you prefer working independently or in teams?",
+      answer: "I prefer a hybrid: I like taking ownership of a feature independently, but I also rely on design docs and regular syncs to ensure alignment. I'm equally comfortable pairing on a tough bug or going heads-down to implement a well-specified module."
+    }
+  ],
+
+  Behavioral: [
+    {
+      question: "Describe a challenging situation you faced.",
+      answer: "Situation: Our team of 4 had to deliver a full-stack app in 3 weeks, but the backend lead fell sick. Task: I had to quickly learn and integrate the database layer. Action: I spent two nights learning Mongoose schemas and wrote the core CRUD APIs, then pair-programmed with the front-end person to ensure contracts matched. Result: We delivered on time, and I gained production-level backend experience."
+    },
+    {
+      question: "Tell me about a failure.",
+      answer: "I once refactored a key function without writing tests first. It passed manual checks but broke an edge case in production, causing a 30-minute rollback. I learned to always write regression tests before any refactor, no matter how simple it seems. Now, I follow the 'red-green-refactor' cycle strictly."
+    },
+    {
+      question: "Tell me about teamwork experience.",
+      answer: "In a capstone project, three of us built a study resource sharing platform. I set up the Git workflow (feature branches, PR reviews) and encouraged daily stand-ups. One teammate lost motivation mid-project, so I offered to pair with them on complex parts. We finished with a polished product and all got A's."
+    },
+    {
+      question: "How do you resolve conflict?",
+      answer: "I once disagreed with a teammate about using a new UI library. Instead of debating, I proposed we each spend an hour building a small prototype and compare. We found that the new library was buggy on mobile, so we stuck with our original. I always move from opinion → small experiment → data."
+    },
+    {
+      question: "Describe leadership experience.",
+      answer: "I led a 5-person project to build a campus event finder. I created a shared roadmap, assigned tasks based on each person's strengths, and ran bi-weekly progress reviews. When we hit a blocker with the Google Maps API, I researched alternatives and presented two options to the team. We shipped on schedule."
+    },
+    {
+      question: "How do you manage multiple tasks?",
+      answer: "I maintain a single source of truth—usually Jira or a Trello board. I label tasks by priority (P0-P2) and estimated effort. I also block 2-hour 'maker' windows in my calendar for deep work and use smaller slots for code reviews and documentation. I reassess every morning."
+    },
+    {
+      question: "Describe a time you helped someone.",
+      answer: "A junior teammate struggled with async JavaScript and callbacks. Instead of giving them the code, I screenshared and walked through the event loop, then pair-programmed a small async function with them. A week later, they fixed a production race condition on their own—that felt better than shipping my own code."
+    },
+    {
+      question: "How do you adapt to change?",
+      answer: "During my internship, the product manager changed requirements mid-sprint. Instead of resisting, I asked clarifying questions, reprioritized my tasks, and communicated the impact to the team. I see requirement changes as normal—the skill is to respond without frustration."
+    },
+    {
+      question: "Describe a time you exceeded expectations.",
+      answer: "I was asked to build a simple contact form with validation. I instead built a progressive form that auto-saves to local storage and shows inline validation. I also added a simple thank-you page with a confetti effect. The client loved it and asked me to build two more components. Going slightly beyond spec earned trust."
+    },
+    {
+      question: "How do you handle mistakes?",
+      answer: "When I accidentally pushed a debug console.log that leaked an API key, I immediately notified my lead, revoked the key, and automated a pre-commit hook to scan for secrets. I also wrote a short post-mortem to share with the team. I focus on preventing future mistakes rather than hiding current ones."
+    }
+  ],
+
+  Situational: [
+    {
+      question: "What would you do if a teammate missed deadlines?",
+      answer: "First, I would privately ask if they're blocked or overloaded—without blame. Then, I'd offer to pair on their hardest task or take a smaller task off their plate. If it becomes a pattern, I'd raise it gently during the retro: 'How can we make our commitments more realistic?'"
+    },
+    {
+      question: "What if you disagree with your manager?",
+      answer: "I would ask for 15 minutes to understand their constraints and share mine with data. For example: 'I see we need speed, but I'm concerned about tech debt. Could we do a quick MVP now and allocate 2 days next sprint to refactor?' I trust my manager's experience, but I owe them my honest perspective."
+    },
+    {
+      question: "How would you handle an angry customer?",
+      answer: "I'd first apologize honestly: 'I'm sorry you're experiencing this.' Then, I'd restate the problem to confirm understanding. Next, I'd set realistic expectations: 'Let me investigate and give you an update within 2 hours.' Finally, I'd fix or escalate the issue and follow up afterward."
+    },
+    {
+      question: "What if you had too many tasks?",
+      answer: "I would bring my current task list to my manager with time estimates, then ask: 'Given our priorities, which two of these should I focus on first?' I would never just silently drop a task. I'd also propose moving less critical work to next sprint."
+    },
+    {
+      question: "What if you fail a project?",
+      answer: "I would lead a blameless post-mortem: what assumptions were wrong, what data we missed, what process failed. Then I'd document concrete changes—like adding a prototype phase or a risk checklist. Failure is acceptable; failing to learn from it is not."
+    }
+  ],
+
+  Technical: [
+    {
+      question: "What is Object-Oriented Programming?",
+      answer: "OOP is a paradigm that organizes code into objects containing both data and behavior. The four core principles are encapsulation (bundling data with methods), inheritance (reusing parent class traits), polymorphism (one interface, multiple implementations), and abstraction (hiding complexity). I use OOP to model real-world entities—like a User or PaymentProcessor—keeping systems maintainable."
+    },
+    {
+      question: "What is a class?",
+      answer: "A class is a blueprint or template for creating objects. It defines properties (attributes) and methods (behaviors) that all instances of that class will have. For example, a 'Car' class might have 'color' and 'startEngine()'—each car object can have different color values but the same method behavior."
+    },
+    {
+      question: "What is an object?",
+      answer: "An object is a specific instance of a class, with actual values assigned to the properties. If 'Car' is a class, 'myRedTesla' is an object with color='red' and model='Model 3'. Objects exist in memory at runtime."
+    },
+    {
+      question: "What is inheritance?",
+      answer: "Inheritance allows a child class to acquire (reuse) properties and methods from a parent class. For example, 'ElectricCar' can inherit from 'Car', gaining 'startEngine()' while adding 'chargeBattery()'. It supports DRY (Don't Repeat Yourself) and creates logical hierarchies."
+    },
+    {
+      question: "What is polymorphism?",
+      answer: "Polymorphism means 'many forms'. It allows objects of different classes to respond to the same method signature in their own way. Example: both 'Dog' and 'Cat' have a '.speak()' method, but 'Dog' returns 'Woof' and 'Cat' returns 'Meow'. This makes code extensible—I can call .speak() on any animal."
+    },
+    {
+      question: "What is encapsulation?",
+      answer: "Encapsulation bundles data and methods within a class and restricts direct external access to internal state, typically using private fields and public getters/setters. For instance, a 'BankAccount' class would not allow direct modification of a 'balance' field—instead you call 'withdraw(amount)' which includes validation."
+    },
+    {
+      question: "What is abstraction?",
+      answer: "Abstraction hides implementation details and exposes only what is necessary. In Java, you might define an interface 'PaymentProcessor' with a method 'processPayment(amount)', but the actual logic (Stripe vs PayPal) is hidden from the caller. This reduces complexity and allows swapping implementations without changing higher-level code."
+    },
+    {
+      question: "Difference between C++ and Java?",
+      answer: "Java is platform-independent (runs on JVM) and manages memory automatically via garbage collection. C++ compiles to machine code and requires manual memory management. Java does not support multiple inheritance of classes (uses interfaces instead) or operator overloading, while C++ supports both. Java is generally safer and more portable; C++ offers finer hardware control."
+    },
+    {
+      question: "What is SQL?",
+      answer: "SQL (Structured Query Language) is a declarative language used to manage relational databases. Key operations include SELECT (querying), INSERT, UPDATE, DELETE, as well as DDL commands like CREATE TABLE. I use SQL to enforce data integrity through constraints like PRIMARY KEY and FOREIGN KEY."
+    },
+    {
+      question: "Difference between SQL and NoSQL?",
+      answer: "SQL databases are table-based, with fixed schemas and support for JOINs and ACID transactions (e.g., PostgreSQL, MySQL). NoSQL databases are non-relational: document stores (MongoDB), key-value (Redis), column-family (Cassandra), or graph (Neo4j). They offer horizontal scaling and flexible schemas. Choose SQL for complex queries and integrity; NoSQL for high volume or rapidly changing data shapes."
+    },
+    {
+      question: "What is DBMS?",
+      answer: "A Database Management System (DBMS) is software that allows you to define, create, query, update, and administer databases. Examples include MySQL, PostgreSQL, Oracle. The DBMS handles concurrency control, security, backups, and query optimization so developers don't have to manage raw file storage."
+    },
+    {
+      question: "What is normalization?",
+      answer: "Normalization is the process of organizing database tables to reduce data redundancy and improve integrity. It involves splitting tables and defining relationships. The most common normal forms (1NF, 2NF, 3NF) eliminate repeating groups, partial dependencies, and transitive dependencies. I typically normalize to 3NF, then denormalize only for performance reasons."
+    },
+    {
+      question: "What is primary key?",
+      answer: "A primary key is a column (or set of columns) that uniquely identifies each row in a table. It must contain unique values and cannot be NULL. Each table can have only one primary key. For example, 'user_id' in a Users table."
+    },
+    {
+      question: "What is foreign key?",
+      answer: "A foreign key is a column that creates a link between two tables. It refers to the primary key of another table, enforcing referential integrity. For example, an 'Orders' table might have a 'customer_id' foreign key that points to 'Customers.id'. This ensures each order belongs to a valid customer."
+    },
+    {
+      question: "What is HTML?",
+      answer: "HTML (HyperText Markup Language) is the standard markup language for creating web pages. It uses tags like <div>, <p>, <a> to structure content semantically. I write accessible HTML (using alt attributes, semantic tags like <nav>, <main>) to support screen readers and SEO."
+    },
+    {
+      question: "What is CSS?",
+      answer: "CSS (Cascading Style Sheets) controls the presentation of HTML—layout, colors, fonts, responsive design. I use Flexbox and Grid for layouts, and prefer utility-first frameworks like Tailwind for consistency, but I also understand vanilla CSS for debugging."
+    },
+    {
+      question: "What is JavaScript?",
+      answer: "JavaScript is a high-level, dynamic, interpreted language that enables interactivity on web pages (client-side) and also runs on servers via Node.js. Key features include first-class functions, prototypal inheritance, and asynchronous programming using Promises and async/await."
+    },
+    {
+      question: "What is DOM?",
+      answer: "The DOM (Document Object Model) is a tree-like representation of an HTML document that JavaScript can interact with. It exposes methods like getElementById, addEventListener, and properties like innerHTML. When the DOM changes, the browser re-renders the affected parts."
+    },
+    {
+      question: "What is API?",
+      answer: "An API (Application Programming Interface) is a set of rules that allows different software applications to communicate. In web development, REST APIs over HTTP are common: a client sends a request (GET, POST, etc.) to a server URL, and the server responds with data (usually JSON)."
+    },
+    {
+      question: "What is REST API?",
+      answer: "REST (Representational State Transfer) is an architectural style for designing networked applications. REST APIs use HTTP methods explicitly (GET to read, POST to create, PUT to update, DELETE to remove), are stateless (each request contains all needed info), and typically return JSON. Resources are identified by URLs like '/users/123'."
+    },
+    {
+      question: "What is Git?",
+      answer: "Git is a distributed version control system that tracks changes in source code. Each developer has a full copy of the repository. Key commands: commit (save snapshot), push (upload to remote), pull (download changes), branch (parallel development), and merge. I use feature branch workflow with pull requests and rebasing for clean history."
+    },
+    {
+      question: "Difference between Git pull and fetch?",
+      answer: "git fetch downloads new data from the remote repository but does not integrate it into your working files. git pull does both: it fetches AND merges the remote changes into your current branch. I prefer git fetch + git merge to review changes before merging."
+    },
+    {
+      question: "What is recursion?",
+      answer: "Recursion is a technique where a function calls itself to solve smaller instances of the same problem. It requires a base case (condition to stop) and a recursive case (calls itself with modified arguments). Example: calculating factorial or traversing a tree. It’s elegant but can cause stack overflow if depth is too high."
+    },
+    {
+      question: "What is stack?",
+      answer: "A stack is a linear data structure that follows LIFO (Last In, First Out). Main operations: push (add to top), pop (remove from top), peek (view top). Used in function call management, undo/redo features, and parsing expressions. Time complexity of push/pop is O(1)."
+    },
+    {
+      question: "What is queue?",
+      answer: "A queue follows FIFO (First In, First Out). Operations: enqueue (add to back), dequeue (remove from front). Used in task scheduling, breadth-first search, and print spoolers. Can be implemented with arrays or linked lists."
+    },
+    {
+      question: "What is linked list?",
+      answer: "A linked list is a linear data structure where each element (node) contains data and a reference (pointer) to the next node. Unlike arrays, they are not stored contiguously. Types: singly (only next), doubly (prev + next), circular. Insertion/deletion at head is O(1); search is O(n)."
+    },
+    {
+      question: "What is binary search?",
+      answer: "Binary search is an efficient algorithm for finding a target in a sorted array. It repeatedly divides the search interval in half: compare target to middle element, then search the left or right half. Time complexity: O(log n). It can be implemented iteratively or recursively."
+    },
+    {
+      question: "What is time complexity?",
+      answer: "Time complexity describes how the runtime of an algorithm scales with input size (n). Expressed using Big O notation: O(1) (constant), O(n) (linear), O(n²) (quadratic), O(log n) (logarithmic). It ignores constants and lower-order terms. For example, binary search is O(log n), bubble sort is O(n²)."
+    },
+    {
+      question: "What is cloud computing?",
+      answer: "Cloud computing is on-demand delivery of compute, storage, databases, and other services over the internet (pay-as-you-go). I have experience with AWS (EC2, S3) and Vercel. The main models: IaaS (infrastructure), PaaS (platform), SaaS (software). Benefits include elasticity, global scalability, and reduced ops overhead."
+    },
+    {
+      question: "What is cybersecurity?",
+      answer: "Cybersecurity protects systems, networks, and data from digital attacks. In development, this means input validation to prevent injection (SQLi, XSS), proper authentication (OAuth, JWT), encryption at rest and in transit (TLS), and least-privilege access. I also practice secure coding, like using parameterized queries."
+    }
+  ]
+};
+
+
+// ================= QUESTION SYSTEM =================
+let currentCategory = "HR";
+let currentQuestions = interviewDataset[currentCategory];
+let currentQuestion = 0;
+
+// ================= LOAD QUESTION =================
+function loadQuestion() {
+    const questionObj = currentQuestions[currentQuestion];
+
+    document.querySelector('.question-card h3').textContent =
+    `Question ${currentQuestion + 1}`;
+
+    document.querySelector('.question-card .question-text p').textContent =
+        questionObj.question;
+
+    document.getElementById('userAnswer').value = '';
+
+    feedbackContainer.style.display = 'none';
+    aiSample.style.display = 'none';
+
+    hideError();
+    hideSuccess();
+}
+
+// ================= CATEGORY CHANGE =================
+if (categorySelector) {
+    categorySelector.addEventListener("change", () => {
+        currentCategory = categorySelector.value;
+        currentQuestions = interviewDataset[currentCategory];
+        currentQuestion = 0;
+
+        loadQuestion();
+    });
+}
+
+// ================= NEXT QUESTION =================
+nextQuestion.addEventListener('click', () => {
+    currentQuestion++;
+
+    if (currentQuestion >= currentQuestions.length) {
+        currentQuestion = 0;
+    }
+
+    loadQuestion();
+});
+
+// ================= SAMPLE ANSWER =================
+generateAnswer.addEventListener('click', () => {
+    aiSample.style.display = 'block';
+
+    aiSample.querySelector('p').textContent =
+        currentQuestions[currentQuestion].answer;
+
+    aiSample.scrollIntoView({
+        behavior: 'smooth'
+    });
+});
+
+// ================= TRY AGAIN =================
+tryAgain.addEventListener('click', () => {
+    document.getElementById('userAnswer').value = '';
+    feedbackContainer.style.display = 'none';
+
+    hideError();
+    hideSuccess();
+});
+
+// ================= LOGIN =================
+
+// ================= REAL LOGIN / REGISTER (FIXED PASSWORD CHECK) =================
+signInBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    // ================= VALIDATION =================
+    if (!email || !password) {
+        showError("Please fill all fields", "login");
+        return;
+    }
+
+    try {
+        signInBtn.disabled = true;
+        signInBtn.textContent = "Signing In...";
+
+        // Hide previous login messages only
+        hideError("login");
+        hideSuccess("login");
+
+        // ================= STEP 1: LOGIN =================
+        const loginResponse = await fetch("http://localhost:5050/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const loginResult = await loginResponse.json();
+
+        // ================= LOGIN SUCCESS =================
+        if (loginResponse.ok && loginResult.success) {
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("userEmail", loginResult.email);
+            localStorage.setItem("userId", loginResult.userId);
+
+            showSuccess("Login successful!", "login");
+
+            loginView.style.display = "none";
+            profileView.style.display = "none";
+            practiceView.style.display = "block";
+
+            // Only call if function exists
+            if (typeof updateNavigationForLoggedInUser === "function") {
+                updateNavigationForLoggedInUser();
+            }
+
+            return;
+        }
+
+        // ================= WRONG PASSWORD =================
+        if (loginResponse.status === 401) {
+            showError("Invalid email or password", "login");
+            return;
+        }
+
+        // ================= USER NOT FOUND → AUTO REGISTER =================
+        if (loginResponse.status === 404 || loginResult.error === "User not found") {
+
+            const registerResponse = await fetch("http://localhost:5050/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const registerResult = await registerResponse.json();
+
+            // ================= REGISTER SUCCESS =================
+            if (registerResponse.ok && registerResult.success) {
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("userEmail", email);
+
+                // FIXED: backend returns user.id
+                localStorage.setItem("userId", registerResult.user.id);
+
+                showSuccess("Account created successfully!", "login");
+
+                loginView.style.display = "none";
+                profileView.style.display = "block";
+
+                return;
+            } else {
+                showError(registerResult.error || "Registration failed", "login");
+                return;
+            }
+        }
+
+        // ================= OTHER SERVER ERRORS =================
+        showError(loginResult.error || "Login failed", "login");
+
+    } catch (err) {
+        console.error("Login/Register Error:", err);
+        showError("Server connection failed", "login");
+    } finally {
+        signInBtn.disabled = false;
+        signInBtn.textContent = "Sign In";
+    }
+});
+
+// ================= LOGIN CHECK =================
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn === "true") {
+        loginView.style.display = "none";
+        profileView.style.display = "none";
+        practiceView.style.display = "block";
+    }
+}
+
+// ================= CHATBOT =================
+chatbotToggle.addEventListener('click', () => {
+    chatbotWindow.style.display = 'flex';
+});
+
+chatbotClose.addEventListener('click', () => {
+    chatbotWindow.style.display = 'none';
+});
+
+chatbotSend.addEventListener('click', sendMessage);
+
+chatbotInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const input = chatbotInput.value.trim();
+
+    if (!input) return;
+
+    const userMessage = input.toLowerCase().trim();
+
+    addMessage(input, "user");
+
+    const botResponse = getBotResponse(userMessage);
+
+    setTimeout(() => {
+        addMessage(botResponse, "bot");
+    }, 500);
+
+    chatbotInput.value = "";
+}
+
+function addMessage(text, sender) {
+    const div = document.createElement('div');
+    div.classList.add('message', `${sender}-message`);
+    div.textContent = text;
+
+    chatbotMessages.appendChild(div);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+function getBotResponse(message) {
+    const msg = message.toLowerCase().trim();
+
+    // Greetings
+    if (["hi", "hello", "hey", "hii"].includes(msg)) {
+        return "Hello! I'm your AI interview coach 👔\nI can help with:\n• HR Interview\n• Technical Interview\n• Behavioral Questions\n• Communication Skills\n\nWhat would you like to practice today?";
+    }
+
+    // HR Interview
+    if (msg.includes("hr") || msg.includes("human resource")) {
+        return "HR interviews test your personality, communication, and confidence.\n\nCommon HR questions:\n• Tell me about yourself\n• Why should we hire you?\n• What are your strengths and weaknesses?\n• Where do you see yourself in 5 years?\n\nType any question to practice.";
+    }
+
+    // Technical Interview
+    if (msg.includes("technical")) {
+        return "Technical interviews assess your subject knowledge.\n\nI can help with:\n• DSA\n• OOP\n• DBMS\n• OS\n• CN\n\nWhich technical topic do you want to prepare?";
+    }
+
+    // Behavioral
+    if (msg.includes("behavioral")) {
+        return "Behavioral interviews often use the STAR method:\nSituation + Task + Action + Result\n\nExample:\n'Tell me about a time you solved a difficult problem.'\n\nWould you like sample answers?";
+    }
+
+    // Communication
+    if (msg.includes("communication")) {
+        return "Strong communication tips:\n• Speak clearly\n• Use structured answers\n• Maintain confidence\n• Avoid filler words\n• Practice mock interviews\n\nWould you like a communication practice question?";
+    }
+
+    // Tell me about yourself
+    if (msg.includes("tell me about yourself")) {
+        return "Sample Answer:\n'I am a motivated student with strong problem-solving skills and a passion for software development. I have experience in C++, DSA, and web development, and I enjoy learning new technologies.'";
+    }
+
+    // Strengths
+    if (msg.includes("strength")) {
+        return "Example strengths:\n• Problem-solving\n• Quick learning\n• Teamwork\n• Adaptability\n\nChoose strengths that match the job role.";
+    }
+
+    // Weakness
+    if (msg.includes("weakness")) {
+        return "Best strategy: Mention a real weakness + improvement plan.\nExample:\n'I sometimes overthink details, but I’m improving by setting clearer deadlines.'";
+    }
+
+    // Default fallback
+    return "I can help with:\n• HR Interview\n• Technical Interview\n• Behavioral Interview\n• Resume Tips\n• Communication Skills\n\nPlease type a topic or question.";
+}
+
+// ================= THEME =================
+(function () {
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+        }
+    }
+
+    function updateToggleButton(isLight) {
+        const toggleBtn = document.getElementById('themeToggle');
+
+        if (!toggleBtn) return;
+
+        const icon = toggleBtn.querySelector('i');
+        const span = toggleBtn.querySelector('span');
+
+        icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+        span.innerText = isLight ? 'Light' : 'Dark';
+    }
+
+    function toggleTheme() {
+        const isLight = document.body.classList.toggle('light-theme');
+
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+
+        updateToggleButton(isLight);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+
+        const toggleBtn = document.getElementById('themeToggle');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', toggleTheme);
+        }
+
+        checkLoginStatus();
+        loadQuestion();
+    });
+})();
+</script>
+</body>
+</html>

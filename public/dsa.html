@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSA Practice - InterviewPrep Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-brain"></i>
+        <span>InterviewPrep Pro</span>
+      </div>
+      
+      <button class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav>
+        <ul id="navMenu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dsa.html" class="active">DSA Practice</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="btn btn-outline" id="loginBtn">Login</button>
+        <button class="btn btn-primary" id="registerBtn">Register</button>
+        <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i> <span>Dark</span>
+</button>
+      </div>
+    </header>
+
+    <div class="view-container">
+      <!-- DSA Practice View -->
+      <div class="dsa-container" id="dsaView">
+        <div class="dsa-header">
+          <h2>DSA Practice Section</h2>
+          <p>Sharpen your problem-solving skills with curated coding challenges</p>
+        </div>
+        
+        <div class="filters-container">
+          <div class="filters-title">
+            <i class="fas fa-filter"></i>
+            <h3>Filter Problems</h3>
+          </div>
+          
+          <div class="filter-options">
+            <div class="filter-group">
+              <label for="difficultyFilter">Difficulty</label>
+              <select id="difficultyFilter" class="filter-select">
+                <option value="all">All Levels</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="topicFilter">Category</label>
+              <select id="topicFilter" class="filter-select">
+                <option value="all">All Topics</option>
+                <option value="Array">Arrays</option>
+                <option value="String">Strings</option>
+                <option value="Linked List">Linked Lists</option>
+                <option value="Tree">Trees</option>
+                <option value="Graph">Graphs</option>
+                <option value="Dynamic Programming">Dynamic Programming</option>
+              </select>
+            </div>
+            
+          
+            
+            <div class="filter-group">
+              <label for="sortFilter">Sort By</label>
+              <select id="sortFilter" class="filter-select">
+                <option value="difficulty">Difficulty</option>
+                <option value="topic">Topic</option>
+                
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="problems-grid" id="problemsGrid">
+          <!-- Problems will be loaded here dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2023 InterviewPrep Pro. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Us</a>
+        <a href="#">About</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const dsaView = document.getElementById('dsaView');
+    const problemsGrid = document.getElementById('problemsGrid');
+    const difficultyFilter = document.getElementById('difficultyFilter');
+    const topicFilter = document.getElementById('topicFilter');
+   
+    const sortFilter = document.getElementById('sortFilter');
+    const navMenu = document.getElementById('navMenu');
+    const mobileToggle = document.getElementById('mobileToggle');
+    
+    // Sample DSA problems data
+    const dsaProblems = [
+      {
+        id: 1,
+        title: "Two Sum",
+        description: "Given an array of integers, return indices of the two numbers that add up to a specific target.",
+        difficulty: "Easy",
+        topic: "Arrays",
+        companies: ["Google", "Amazon", "Microsoft"],
+        solution: "// JavaScript Solution\nfunction twoSum(nums, target) {\n    const map = new Map();\n    for (let i = 0; i < nums.length; i++) {\n        const complement = target - nums[i];\n        if (map.has(complement)) {\n            return [map.get(complement), i];\n        }\n        map.set(nums[i], i);\n    }\n    return [];\n}"
+      },
+      {
+        id: 2,
+        title: "Reverse a Linked List",
+        description: "Reverse a singly linked list iteratively and recursively.",
+        difficulty: "Medium",
+        topic: "Linked Lists",
+        companies: ["Facebook", "Apple", "Amazon"],
+        solution: "// JavaScript Solution (Iterative)\nfunction reverseList(head) {\n    let prev = null;\n    let current = head;\n    while (current !== null) {\n        let nextTemp = current.next;\n        current.next = prev;\n        prev = current;\n        current = nextTemp;\n    }\n    return prev;\n}"
+      },
+      {
+        id: 3,
+        title: "Binary Tree Level Order Traversal",
+        description: "Given a binary tree, return the level order traversal of its nodes' values.",
+        difficulty: "Medium",
+        topic: "Trees",
+        companies: ["Google", "Microsoft", "Facebook"],
+        solution: "// JavaScript Solution\nfunction levelOrder(root) {\n    if (!root) return [];\n    const result = [];\n    const queue = [root];\n    \n    while (queue.length) {\n        const levelSize = queue.length;\n        const currentLevel = [];\n        \n        for (let i = 0; i < levelSize; i++) {\n            const currentNode = queue.shift();\n            currentLevel.push(currentNode.val);\n            if (currentNode.left) queue.push(currentNode.left);\n            if (currentNode.right) queue.push(currentNode.right);\n        }\n        \n        result.push(currentLevel);\n    }\n    \n    return result;\n}"
+      },
+      {
+        id: 4,
+        title: "Longest Palindromic Substring",
+        description: "Given a string s, return the longest palindromic substring in s.",
+        difficulty: "Medium",
+        topic: "Strings",
+        companies: ["Amazon", "Microsoft", "Apple"],
+        solution: "// JavaScript Solution\nfunction longestPalindrome(s) {\n    if (s.length < 2) return s;\n    \n    let start = 0, end = 0;\n    \n    for (let i = 0; i < s.length; i++) {\n        let len1 = expandAroundCenter(s, i, i);\n        let len2 = expandAroundCenter(s, i, i + 1);\n        let len = Math.max(len1, len2);\n        \n        if (len > end - start) {\n            start = i - Math.floor((len - 1) / 2);\n            end = i + Math.floor(len / 2);\n        }\n    }\n    \n    return s.substring(start, end + 1);\n}\n\nfunction expandAroundCenter(s, left, right) {\n    while (left >= 0 && right < s.length && s[left] === s[right]) {\n        left--;\n        right++;\n    }\n    return right - left - 1;\n}"
+      },
+      {
+        id: 5,
+        title: "Median of Two Sorted Arrays",
+        description: "Given two sorted arrays nums1 and nums2, return the median of the two sorted arrays.",
+        difficulty: "Hard",
+        topic: "Arrays",
+        companies: ["Google", "Amazon", "Facebook"],
+        solution: "// JavaScript Solution\nfunction findMedianSortedArrays(nums1, nums2) {\n    if (nums1.length > nums2.length) {\n        [nums1, nums2] = [nums2, nums1];\n    }\n    \n    const m = nums1.length, n = nums2.length;\n    let low = 0, high = m;\n    \n    while (low <= high) {\n        const partitionX = Math.floor((low + high) / 2);\n        const partitionY = Math.floor((m + n + 1) / 2) - partitionX;\n        \n        const maxX = partitionX === 0 ? -Infinity : nums1[partitionX - 1];\n        const maxY = partitionY === 0 ? -Infinity : nums2[partitionY - 1];\n        \n        const minX = partitionX === m ? Infinity : nums1[partitionX];\n        const minY = partitionY === n ? Infinity : nums2[partitionY];\n        \n        if (maxX <= minY && maxY <= minX) {\n            const maxLeft = Math.max(maxX, maxY);\n            if ((m + n) % 2 === 1) return maxLeft;\n            \n            const minRight = Math.min(minX, minY);\n            return (maxLeft + minRight) / 2;\n        } else if (maxX > minY) {\n            high = partitionX - 1;\n        } else {\n            low = partitionX + 1;\n        }\n    }\n}"
+      },
+      {
+        id: 6,
+        title: "Word Break",
+        description: "Given a string s and a dictionary of strings wordDict, return true if s can be segmented into words from wordDict.",
+        difficulty: "Medium",
+        topic: "Dynamic Programming",
+        companies: ["Google", "Amazon", "Microsoft"],
+        solution: "// JavaScript Solution\nfunction wordBreak(s, wordDict) {\n    const wordSet = new Set(wordDict);\n    const dp = new Array(s.length + 1).fill(false);\n    dp[0] = true;\n    \n    for (let i = 1; i <= s.length; i++) {\n        for (let j = 0; j < i; j++) {\n            if (dp[j] && wordSet.has(s.substring(j, i))) {\n                dp[i] = true;\n                break;\n            }\n        }\n    }\n    \n    return dp[s.length];\n}"
+      }
+    ];
+    
+    // // Initialize the DSA practice view
+    // function initDSAView() {
+    //   renderProblems(dsaProblems);
+    //   setupEventListeners();
+    // }
+
+    function initDSAView() {
+  fetch("problems.json")
+    .then(res => res.json())
+    .then(data => {
+      console.log(data); // debug
+
+      const formatted = transformData(data.questions.slice(0, 200)); // ✅ IMPORTANT
+      window.allProblems = formatted; // store globally
+
+      renderProblems(formatted);
+    })
+    .catch(err => console.error("Error loading JSON:", err));
+
+  setupEventListeners();
+}
+
+function transformData(data) {
+  return data.map((item, index) => ({
+    id: index + 1,
+    title: item.title,
+    description: item.description || "No description",
+    difficulty: item.difficulty,
+    topic: item.topics ? item.topics[0] : "General",
+    companies: ["Unknown"], // dataset doesn’t have companies
+    solution: "Not available"
+  }));
+}
+    
+    // Render problems based on filters
+    function renderProblems(problems) {
+      problemsGrid.innerHTML = '';
+      
+      problems.forEach(problem => {
+        const problemCard = document.createElement('div');
+        problemCard.className = 'problem-card';
+        problemCard.innerHTML = `
+          <div class="problem-header">
+            <h4 class="problem-title">${problem.title}</h4>
+            <span class="difficulty-badge difficulty-${problem.difficulty.toLowerCase()}">${problem.difficulty}</span>
+          </div>
+          <div class="problem-meta">
+            <span class="problem-topic">${problem.topic}</span>
+          </div>
+          <p class="problem-description">${problem.description}</p>
+          <div class="problem-footer">
+            <div class="problem-companies">
+              ${problem.companies.slice(0, 2).map(company => 
+                `<span class="company-tag">${company}</span>`
+              ).join('')}
+              ${problem.companies.length > 2 ? 
+                `<span class="company-tag">+${problem.companies.length - 2}</span>` : ''
+              }
+            </div>
+            <div class="problem-actions">
+              <button class="action-btn view-btn" data-id="${problem.id}">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="action-btn bookmark-btn" data-id="${problem.id}">
+                <i class="far fa-bookmark"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        
+        problemsGrid.appendChild(problemCard);
+      });
+      
+      // Add event listeners to view buttons (redirect to problem.html)
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const problemId = e.currentTarget.getAttribute('data-id');
+          window.location.href = `problem.html?id=${problemId}`;
+        });
+      });
+      
+      // Add event listeners to bookmark buttons
+      document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const problemId = e.currentTarget.getAttribute('data-id');
+          const icon = e.currentTarget.querySelector('i');
+          
+          // Toggle bookmark icon
+          if (icon.classList.contains('far')) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+            console.log(`Saved problem ${problemId}`);
+          } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+            console.log(`Removed problem ${problemId} from saved`);
+          }
+        });
+      });
+    }
+    
+    // Filter problems based on selected criteria
+    function filterProblems() {
+      const difficulty = difficultyFilter.value;
+      const topic = topicFilter.value;
+      
+      const sort = sortFilter.value;
+      
+      // let filteredProblems = [...dsaProblems];
+
+      let filteredProblems = [...window.allProblems]; 
+      
+      // Apply filters
+      if (difficulty !== 'all') {
+       filteredProblems = filteredProblems.filter(
+  problem => problem.difficulty.toLowerCase() === difficulty.toLowerCase()
+);
+      }
+      
+      if (topic !== 'all') {
+        filteredProblems = filteredProblems.filter(problem => problem.topic === topic);
+      }
+      
+      
+      
+      // Apply sorting
+      if (sort === 'difficulty') {
+        const difficultyOrder = { 'Easy': 1, 'Medium': 2, 'Hard': 3 };
+        filteredProblems.sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]);
+      } else if (sort === 'topic') {
+        filteredProblems.sort((a, b) => a.topic.localeCompare(b.topic));
+      }
+      
+      // renderProblems(filteredProblems);
+      renderProblems(filteredProblems.slice(0, 50));
+    }
+    
+    // Setup event listeners
+    function setupEventListeners() {
+      // Filter change events
+      difficultyFilter.addEventListener('change', filterProblems);
+      topicFilter.addEventListener('change', filterProblems);
+      
+      sortFilter.addEventListener('change', filterProblems);
+      
+      // Mobile menu toggle
+      mobileToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
+    }
+    
+    // Initialize the DSA view when the page loads
+    document.addEventListener('DOMContentLoaded', initDSAView);
+
+   (function() {
+        // Initialize theme from localStorage
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const isLight = savedTheme === 'light';
+            if (isLight) {
+                document.body.classList.add('light-theme');
+            } else {
+                document.body.classList.remove('light-theme');
+            }
+            updateToggleButton(isLight);
+        }
+
+        // Update the toggle button icon and text
+        function updateToggleButton(isLight) {
+            const toggleBtn = document.getElementById('themeToggle');
+            if (!toggleBtn) return;
+            const icon = toggleBtn.querySelector('i');
+            const span = toggleBtn.querySelector('span');
+            if (icon) {
+                icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            if (span) {
+                span.innerText = isLight ? 'Light' : 'Dark';
+            }
+        }
+
+        // Toggle theme and save to localStorage
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            updateToggleButton(isLight);
+        }
+
+        // Listen for changes in other tabs
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'theme') {
+                const isLight = event.newValue === 'light';
+                if (isLight) {
+                    document.body.classList.add('light-theme');
+                } else {
+                    document.body.classList.remove('light-theme');
+                }
+                updateToggleButton(isLight);
+            }
+        });
+
+        // Attach event listener once DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            const toggleBtn = document.getElementById('themeToggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleTheme);
+            }
+        });
+    })();
+
+  </script>
+</body>
+</html>

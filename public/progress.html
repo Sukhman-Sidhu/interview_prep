@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InterviewPrep Pro | Progress Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo"><i class="fas fa-brain"></i><span>InterviewPrep Pro</span></div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dsa.html">DSA Practice</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="progress.html" class="active">Progress</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn btn-outline">Login</button>
+            <button class="btn btn-primary">Register</button>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i> <span>Dark</span>
+        </div>
+    </header>
+
+    <section class="progress-page">
+        <div class="auth-header">
+            <h2>📊 Your Real Progress</h2>
+            <p>Every solved problem, mock interview & activity updates live</p>
+        </div>
+
+        <!-- Dynamic stats cards -->
+        <div class="profile-grid" id="statsGrid"></div>
+
+        <!-- Recent Activity -->
+        <div class="profile-card">
+            <h3><i class="fas fa-history"></i> Recent Activity</h3>
+            <ul class="activity-list" id="recentActivityList">
+                <li><i class="fas fa-spinner fa-pulse"></i> Loading...</li>
+            </ul>
+        </div>
+
+        <!-- Weekly Goals + Performance -->
+        <div class="profile-grid">
+            <div class="profile-card">
+                <h3><i class="fas fa-bullseye"></i> Weekly Goals</h3>
+                <ul class="activity-list">
+                    <li>✔ Solve 20 DSA Problems</li>
+                    <li>✔ Practice 2 Mock Interviews</li>
+                    <li>✔ Improve Aptitude Speed</li>
+                    <li>✔ Learn System Design Basics</li>
+                </ul>
+            </div>
+            <div class="profile-card" id="performanceCard">
+                <h3><i class="fas fa-chart-line"></i> Performance Overview</h3>
+                <p class="resource-desc" id="performanceText">Calculating readiness...</p>
+                <div class="progress-bar"><div class="progress-fill" id="performanceFill" style="width:0%"></div></div>
+                <p class="progress-text" id="performanceSubtext">Stay consistent 🔥</p>
+            </div>
+        </div>
+
+        <!-- Live Tracker Controls -->
+        <div class="profile-card" style="margin-top: 20px;">
+            <h3><i class="fas fa-pen-alt"></i> Log Your Activity</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                <button class="btn btn-primary" id="addProblemBtn"><i class="fas fa-code"></i> + Solved Problem</button>
+                <button class="btn btn-primary" id="addMockBtn"><i class="fas fa-user-tie"></i> + Mock Interview</button>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span><i class="fas fa-microphone"></i> Comm Score:</span>
+                    <input type="number" id="commScoreInput" step="0.1" min="0" max="10" value="8.5" style="padding: 8px 12px; border-radius: 30px; background: rgba(255,255,255,0.1); border: none; color: white; width: 80px;">
+                    <button class="btn btn-outline" id="updateCommBtn">Update</button>
+                </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <input type="text" id="customProblemInput" placeholder="Problem name (e.g., Two Sum)" style="flex:1; padding: 10px; border-radius: 30px; background: rgba(255,255,255,0.1); border: none; color: white;">
+                <button class="btn btn-primary" id="customProblemBtn">Log Problem</button>
+                <button class="btn btn-outline" id="resetDataBtn" style="background: rgba(239,68,68,0.2); border-color: #ef4444; color: #ef4444;">Reset All</button>
+            </div>
+            <p class="progress-text" style="margin-top: 15px;"><i class="fas fa-save"></i> Auto-saved in your browser (localStorage)</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 InterviewPrep Pro. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+            <a href="#">About</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const STORAGE_KEY = "interview_prep_progress";
+    const GOAL_SOLVED = 200, GOAL_MOCK = 30, STREAK_GOAL = 30;
+
+    let progressData = {
+        totalSolved: 0, totalMock: 0, commScore: 6.5,
+        streakDays: 0, lastActivityDate: null,
+        recentActivities: []
+    };
+
+    function loadData() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            try {
+                const p = JSON.parse(stored);
+                progressData = { ...progressData, ...p };
+            } catch(e) {}
+        } else {
+            addActivity("🎉 Welcome! Start solving problems to build your streak.", true);
+            saveData();
+        }
+        renderAll();
+    }
+    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(progressData)); }
+
+    function addActivity(text, skipStreak = false) {
+        const now = new Date();
+        const today = now.toISOString().split('T')[0];
+        const time = now.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+        progressData.recentActivities.unshift({ text, timestamp: `${today} ${time}`, date: today });
+        if (progressData.recentActivities.length > 20) progressData.recentActivities.pop();
+        if (!skipStreak) updateStreak(today);
+        saveData();
+    }
+
+    function updateStreak(today) {
+        const last = progressData.lastActivityDate;
+        if (!last) progressData.streakDays = 1;
+        else {
+            const diff = (new Date(today) - new Date(last)) / (1000*3600*24);
+            if (diff === 1) progressData.streakDays++;
+            else if (diff > 1) progressData.streakDays = 1;
+        }
+        progressData.lastActivityDate = today;
+    }
+
+    function addSolved(problem = null) {
+        const name = problem || `Problem #${progressData.totalSolved+1}`;
+        progressData.totalSolved++;
+        addActivity(`✅ Solved: ${name}`);
+        renderAll();
+    }
+    function addMock() {
+        progressData.totalMock++;
+        addActivity(`🎤 Mock Interview completed (Total: ${progressData.totalMock})`);
+        renderAll();
+    }
+    function updateComm(score) {
+        let s = parseFloat(score);
+        if (isNaN(s)) s = progressData.commScore;
+        s = Math.min(10, Math.max(0, s));
+        const old = progressData.commScore;
+        progressData.commScore = s;
+        addActivity(`🎙️ Communication score: ${old.toFixed(1)} → ${s.toFixed(1)}`);
+        renderAll();
+    }
+    function resetAll() {
+        if (confirm("⚠️ Erase all progress? This cannot be undone.")) {
+            progressData = { totalSolved:0, totalMock:0, commScore:6.5, streakDays:0, lastActivityDate:null, recentActivities:[] };
+            addActivity("🔄 Progress reset. Start fresh!", true);
+            saveData();
+            renderAll();
+        }
+    }
+
+    function renderAll() {
+        renderStats();
+        renderRecent();
+        renderPerformance();
+    }
+
+    function renderStats() {
+        const grid = document.getElementById('statsGrid');
+        if (!grid) return;
+        const solvedPct = Math.min(100, (progressData.totalSolved/GOAL_SOLVED)*100);
+        const mockPct = Math.min(100, (progressData.totalMock/GOAL_MOCK)*100);
+        const commPct = (progressData.commScore/10)*100;
+        const streakPct = Math.min(100, (progressData.streakDays/STREAK_GOAL)*100);
+        grid.innerHTML = `
+            <div class="profile-card"><h3><i class="fas fa-code"></i> Questions Solved</h3><div class="progress-number">${progressData.totalSolved}</div><div class="progress-bar"><div class="progress-fill" style="width:${solvedPct}%"></div></div><p class="progress-text">${progressData.totalSolved}/${GOAL_SOLVED} • ${Math.round(solvedPct)}%</p></div>
+            <div class="profile-card"><h3><i class="fas fa-user-tie"></i> Mock Interviews</h3><div class="progress-number">${progressData.totalMock}</div><div class="progress-bar"><div class="progress-fill" style="width:${mockPct}%"></div></div><p class="progress-text">${progressData.totalMock}/${GOAL_MOCK} interviews</p></div>
+            <div class="profile-card"><h3><i class="fas fa-microphone"></i> Communication Score</h3><div class="progress-number">${progressData.commScore.toFixed(1)}/10</div><div class="progress-bar"><div class="progress-fill" style="width:${commPct}%"></div></div><p class="progress-text">${progressData.commScore>=8?'Excellent':progressData.commScore>=6?'Good':'Needs practice'}</p></div>
+            <div class="profile-card"><h3><i class="fas fa-fire"></i> Daily Streak</h3><div class="progress-number">${progressData.streakDays} Day${progressData.streakDays!==1?'s':''}</div><div class="progress-bar"><div class="progress-fill" style="width:${streakPct}%"></div></div><p class="progress-text">${progressData.streakDays===0?'Start an activity 🔥':'Keep going!'}</p></div>
+        `;
+    }
+
+    function renderRecent() {
+        const container = document.getElementById('recentActivityList');
+        if (!container) return;
+        if (!progressData.recentActivities.length) {
+            container.innerHTML = '<li><i class="fas fa-info-circle"></i> No activities yet. Use the tracker above.</li>';
+            return;
+        }
+        container.innerHTML = progressData.recentActivities.map(a => `<li><i class="fas fa-check-circle"></i> ${escapeHtml(a.text)} <span style="margin-left:auto; font-size:0.7rem; opacity:0.7;">${a.timestamp}</span></li>`).join('');
+    }
+
+    function renderPerformance() {
+        const solvedPct = Math.min(100, (progressData.totalSolved/GOAL_SOLVED)*100);
+        const mockPct = Math.min(100, (progressData.totalMock/GOAL_MOCK)*100);
+        const commPct = (progressData.commScore/10)*100;
+        let overall = (solvedPct*0.5)+(mockPct*0.3)+(commPct*0.2);
+        overall = Math.min(100, Math.round(overall));
+        const text = document.getElementById('performanceText');
+        const fill = document.getElementById('performanceFill');
+        const sub = document.getElementById('performanceSubtext');
+        if (text) text.innerHTML = `Overall readiness: <strong>${overall}%</strong>. ${progressData.totalSolved<20?'📘 Start solving DSA problems.':progressData.totalSolved<80?'💪 Good momentum! Keep logging.':'🚀 You are interview-ready!'}<br> ✅ ${progressData.totalSolved} problems • 🎤 ${progressData.totalMock} mocks`;
+        if (fill) fill.style.width = overall+'%';
+        if (sub) sub.innerHTML = overall>=80?'🎉 Exceptional consistency!' : (overall>=50?'📈 Keep pushing!':'⭐ Every problem counts.');
+    }
+
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    window.updateProgress = { addSolvedProblem: addSolved, addMockInterview: addMock, updateCommScore: updateComm, getStats: () => ({...progressData}) };
+    window.addEventListener('storage', (e) => { if(e.key===STORAGE_KEY) loadData(); });
+    document.addEventListener('DOMContentLoaded', () => {
+        loadData();
+        document.getElementById('addProblemBtn')?.addEventListener('click', () => addSolved());
+        document.getElementById('addMockBtn')?.addEventListener('click', addMock);
+        document.getElementById('updateCommBtn')?.addEventListener('click', () => { updateComm(document.getElementById('commScoreInput').value); document.getElementById('commScoreInput').value = progressData.commScore.toFixed(1); });
+        document.getElementById('resetDataBtn')?.addEventListener('click', resetAll);
+        document.getElementById('customProblemBtn')?.addEventListener('click', () => { let inp = document.getElementById('customProblemInput'); let val = inp.value.trim(); if(val) addSolved(val); else addSolved(); inp.value = ''; });
+        document.getElementById('mobileToggle')?.addEventListener('click', () => { let m = document.getElementById('navMenu'); if(m) m.style.display = m.style.display==='flex'?'none':'flex'; });
+    });
+
+     (function() {
+        // Initialize theme from localStorage
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const isLight = savedTheme === 'light';
+            if (isLight) {
+                document.body.classList.add('light-theme');
+            } else {
+                document.body.classList.remove('light-theme');
+            }
+            updateToggleButton(isLight);
+        }
+
+        // Update the toggle button icon and text
+        function updateToggleButton(isLight) {
+            const toggleBtn = document.getElementById('themeToggle');
+            if (!toggleBtn) return;
+            const icon = toggleBtn.querySelector('i');
+            const span = toggleBtn.querySelector('span');
+            if (icon) {
+                icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            if (span) {
+                span.innerText = isLight ? 'Light' : 'Dark';
+            }
+        }
+
+        // Toggle theme and save to localStorage
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            updateToggleButton(isLight);
+        }
+
+        // Listen for changes in other tabs
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'theme') {
+                const isLight = event.newValue === 'light';
+                if (isLight) {
+                    document.body.classList.add('light-theme');
+                } else {
+                    document.body.classList.remove('light-theme');
+                }
+                updateToggleButton(isLight);
+            }
+        });
+
+        // Attach event listener once DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            const toggleBtn = document.getElementById('themeToggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleTheme);
+            }
+        });
+    })();
+</script>
+</body>
+</html>
