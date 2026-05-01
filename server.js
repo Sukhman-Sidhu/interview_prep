@@ -35,7 +35,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ====== MySQL Connection Pool ======
 const pool = mysql.createPool({
@@ -92,7 +92,7 @@ app.get('/test', (req, res) => {
 
 // ====== Routes ======
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // ====== Authentication APIs ======
