@@ -1102,7 +1102,7 @@ signInBtn.addEventListener('click', async (e) => {
         hideSuccess("login");
 
         // ================= STEP 1: LOGIN =================
-        const loginResponse = await fetch("http://localhost:5050/api/login", {
+       const loginResponse = await fetch("/api/login",  {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -1141,7 +1141,7 @@ signInBtn.addEventListener('click', async (e) => {
         // ================= USER NOT FOUND → AUTO REGISTER =================
         if (loginResponse.status === 404 || loginResult.error === "User not found") {
 
-            const registerResponse = await fetch("http://localhost:5050/api/register", {
+            const registerResponse = await fetch("/api/register",  {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

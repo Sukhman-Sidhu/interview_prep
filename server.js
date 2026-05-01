@@ -49,27 +49,27 @@ const pool = mysql.createPool({
 });
 
 // Test DB connection on startup
-// async function testDatabaseConnection() {
-//     try {
-//         const connection = await pool.getConnection();
-//         console.log(' Database connected successfully');
-//         connection.release();
-//     } catch (err) {
-//         console.error('Database connection failed:', err.message);
-//         process.exit(1);
-//     }
-// }
-
 async function testDatabaseConnection() {
     try {
         const connection = await pool.getConnection();
-        console.log('✅ Database connected successfully');
+        console.log(' Database connected successfully');
         connection.release();
     } catch (err) {
-        console.error('⚠️ Database connection failed:', err.message);
-        console.log('⚠️ Continuing without database for deployment demo...');
+        console.error('Database connection failed:', err.message);
+        process.exit(1);
     }
 }
+
+// async function testDatabaseConnection() {
+//     try {
+//         const connection = await pool.getConnection();
+//         console.log('✅ Database connected successfully');
+//         connection.release();
+//     } catch (err) {
+//         console.error('⚠️ Database connection failed:', err.message);
+//         console.log('⚠️ Continuing without database for deployment demo...');
+//     }
+// }
 
 // app.get('/api/test-gemini', async (req, res) => {
 //     try {
@@ -94,7 +94,6 @@ app.get('/test', (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
 // ====== Authentication APIs ======
 
 app.post('/api/register', async (req, res) => {
@@ -432,10 +431,9 @@ app.post('/api/save-profile', async (req, res) => {
 // });
 
 app.listen(PORT, async () => {
-    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
     await testDatabaseConnection();
 });
-
 process.on('SIGINT', () => {
     console.log('\nServer shutting down gracefully');
     process.exit(0);

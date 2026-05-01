@@ -14,6 +14,9 @@
     --editor-bg: #1e1e2f;
     --editor-header: #27293d;
     --editor-border: rgba(255, 255, 255, 0.1);
+    --select-bg: #1e293b;    /* dark background for dropdowns */
+    --select-text: #f8f9fa; 
+    
     
     /* Body & text */
     --body-bg-start: #0f172a;
