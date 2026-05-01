@@ -1284,6 +1284,16 @@ function getBotResponse(message) {
     return "I can help with:\n• HR Interview\n• Technical Interview\n• Behavioral Interview\n• Resume Tips\n• Communication Skills\n\nPlease type a topic or question.";
 }
 
+// ================= MOBILE MENU =================
+const mobileToggle = document.getElementById("mobileToggle");
+const navMenu = document.getElementById("navMenu");
+
+if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("show");
+    });
+}
+
 // ================= THEME =================
 (function () {
     function initTheme() {
