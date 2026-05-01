@@ -49,14 +49,25 @@ const pool = mysql.createPool({
 });
 
 // Test DB connection on startup
+// async function testDatabaseConnection() {
+//     try {
+//         const connection = await pool.getConnection();
+//         console.log(' Database connected successfully');
+//         connection.release();
+//     } catch (err) {
+//         console.error('Database connection failed:', err.message);
+//         process.exit(1);
+//     }
+// }
+
 async function testDatabaseConnection() {
     try {
         const connection = await pool.getConnection();
-        console.log(' Database connected successfully');
+        console.log('✅ Database connected successfully');
         connection.release();
     } catch (err) {
-        console.error('Database connection failed:', err.message);
-        process.exit(1);
+        console.error('⚠️ Database connection failed:', err.message);
+        console.log('⚠️ Continuing without database for deployment demo...');
     }
 }
 
@@ -415,8 +426,13 @@ app.post('/api/save-profile', async (req, res) => {
 });
        
 // ====== Start server ======
+// app.listen(PORT, async () => {
+//     console.log(`Server running at http://localhost:${PORT}`);
+//     await testDatabaseConnection();
+// });
+
 app.listen(PORT, async () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
     await testDatabaseConnection();
 });
 
