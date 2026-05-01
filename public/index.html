@@ -572,7 +572,7 @@ if (completeProfileBtn) {
             completeProfileBtn.disabled = true;
             completeProfileBtn.textContent = "Saving Profile...";
 
-            const response = awaitfetch("/api/save-profile", {
+            const response = await fetch("/api/save-profile", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
